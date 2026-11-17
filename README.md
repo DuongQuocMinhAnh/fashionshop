@@ -1,15 +1,13 @@
-# Fashion Shop (Clean Architecture)
+# Fashion Shop - PHP MVC
 
-Thiết kế website thương mại điện tử chuyên sâu về mảng thời trang, xử lý thuộc tính sản phẩm phức tạp.
+Dự án website thương mại điện tử thời trang được xây dựng trên nền tảng PHP MVC thuần.
 
-## Cấu trúc dự án
-Cấu trúc dự án theo mô hình Clean Architecture / Layered Architecture:
-
-- **config/**: Lưu cấu hình hệ thống (kết nối database config.php).
-- **database/**: Chứa các script SQL (schema.sql, seed.sql).
-- **public/**: Document root của Web server (chứa index.php, css/, js/, images/).
-- **src/**: Mã nguồn ứng dụng:
-  - **Domain/**: Thực thể (Entity) và Giao diện (Repository Interface).
-  - **Application/**: Các ca sử dụng nghiệp vụ (Use Cases).
-  - **Infrastructure/**: Tầng hạ tầng kỹ thuật (Kết nối Database, Session storage, MySQL Repository).
-  - **Presentation/**: Tầng hiển thị (Controller, View template, Helpers).
+## Cấu trúc thư mục:
+- `assets/`: Chứa file tĩnh (css, js, images, thư viện vendor bootstrap, jquery).
+- `config/`: Cấu hình kết nối CSDL PDO (`database.php`).
+- `controllers/`: Chứa các controller xử lý logic (`Controller.php`, `HomeController.php`).
+- `database/`: Chứa các file SQL schema (`schema.sql`).
+- `models/`: Chứa các class tương tác dữ liệu/Database (`Model.php`).
+- `views/`: Chứa giao diện hiển thị (`layout/header.php`, `layout/footer.php`, `home.php`, `not_found.php`).
+- `helpers.php`: Chứa các hàm tiện ích dùng chung (xss escape, format tiền, url helper...).
+- `index.php`: Front Controller điều hướng request.
