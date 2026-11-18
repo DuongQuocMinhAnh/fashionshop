@@ -1,5 +1,4 @@
-<!-- =========================================================================
-     TỆP GIAO DIỆN: views/products/index.php
+<!-- TỆP GIAO DIỆN: views/products/index.php
      PHỤ TRÁCH: Mai Trang (HTML5 Semantic + Khung hiển thị Form & Bảng)
      Thẻ ngữ nghĩa sử dụng: <main>, <header>, <section>, <form>, <table>, <figure>
 
@@ -18,8 +17,7 @@
      2. Gửi Hoàng Phúc (CSS & JS):
         - Các class/id đã đặt sẵn để gắn CSS/JS: .top-wrapper, .main-header,
           .form-section (#productForm), .table-section (#productTable),
-          .product-img, .btn-primary, .btn-secondary, .btn-edit, .btn-delete.
-     ========================================================================= -->
+          .product-img, .btn-primary, .btn-secondary, .btn-edit, .btn-delete -->
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -33,11 +31,11 @@
     <!-- Thẻ ngữ nghĩa HTML5: Main -->
     <main class="container">
     
-        <!-- KHUNG TRÊN: DÙNG BẢNG HTML KHÔNG VIỀN ĐỂ ĐẶT TIÊU ĐỀ (TRÁI) SONG SONG VỚI FORM (PHẢI) (RỘNG 90%) -->
+        <!-- KHUNG TRÊN -->
         <table class="top-wrapper" width="90%" align="center" border="0" cellpadding="10" cellspacing="0">
             <tr valign="top">
                 
-                <!-- CỘT TRÁI (55%): TIÊU ĐỀ CHUẨN SEO + MÔ TẢ + HÌNH ẢNH MINH HỌA -->
+                <!-- CỘT TRÁI -->
                 <td width="55%">
                     <header class="main-header">
                         <h1>
@@ -59,7 +57,7 @@
                     </header>
                 </td>
 
-                <!-- CỘT PHẢI (45%): FORM THÊM / SỬA SẢN PHẨM -->
+                <!-- CỘT PHẢI -->
                 <td width="45%">
                     <section class="form-section" id="product-form-area">
                         <h2><?= isset($editProduct) ? 'Cập Nhật Sản Phẩm' : 'Thêm Sản Phẩm Mới' ?></h2>
