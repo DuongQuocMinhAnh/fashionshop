@@ -9,14 +9,13 @@ class Database
     {
         if (self::$instance === null) {
 
-            $host = '127.0.0.1';
+            $host = '127.0.0.1';  
             $port = 3306;
             $dbname = 'fashionshop';
             $username = 'root';
             $password = '';
 
             try {
-                // Uu tien ket noi MySQL
                 $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
 
                 self::$instance = new PDO(
@@ -31,19 +30,7 @@ class Database
                 );
 
             } catch (PDOException $e) {
-
-                // Neu MySQL loi, chuyen sang SQLite
-                $sqlitePath = __DIR__ . '/../database/fashion.db';
-
-                self::$instance = new PDO(
-                    "sqlite:" . $sqlitePath,
-                    null,
-                    null,
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    ]
-                );
+                die("Lỗi kết nối cơ sở dữ liệu MySQL: ". $e->getMessage());
             }
         }
 
