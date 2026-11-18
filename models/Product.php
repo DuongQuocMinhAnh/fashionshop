@@ -1,58 +1,71 @@
 <?php
-
-require_once __DIR__ . '/../config/database.php';
-
+/**
+ * Lớp Product - Xử lý thao tác dữ liệu (CRUD) bảng products
+ * Sử dụng PDO Prepared Statements chống SQL Injection với dữ liệu dạng mảng.
+ */
 class Product {
-    private PDO $db;
+    private $db;
 
-    public function __construct() {
-        $this->db = Database::getConnection();
+    public function __construct($pdo) {
+        $this->db = $pdo;
     }
 
-    public function all(): array {
-        $stmt = $this->db->query("SELECT * FROM products ORDER BY id DESC");
-        return $stmt->fetchAll();
+    /**
+     * 1. Lấy tất cả danh sách sản phẩm
+     */
+    public function getAll() {
+        $sql = "SELECT * FROM products";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function find(int $id): ?array {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-        $product = $stmt->fetch();
-        return $product ?: null;
+    /**
+     * 2. Lấy thông tin một sản phẩm theo ID
+     */
+    public function getById($id) {
+        $sql = "SELECT * FROM products WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function create(array $data): bool {
-        $stmt = $this->db->prepare("
-            INSERT INTO products (name, category, price, quantity, description)
-            VALUES (:name, :category, :price, :quantity, :description)
-        ");
+    /**
+     * 3. Thêm mới sản phẩm (Nhận vào mảng dữ liệu từ Controller)
+     */
+    public function insert($data) {
+        $sql = "INSERT INTO products (name, category, price, description) VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            'name' => $data['name'],
-            'category' => $data['category'],
-            'price' => $data['price'],
-            'quantity' => $data['quantity'],
-            'description' => $data['description'] ?? ''
+            $data['name'] ?? '',
+            $data['category'] ?? '',
+            $data['price'] ?? 0,
+            $data['description'] ?? ''
         ]);
     }
 
-    public function update(int $id, array $data): bool {
-        $stmt = $this->db->prepare("
-            UPDATE products 
-            SET name = :name, category = :category, price = :price, quantity = :quantity, description = :description, updated_at = CURRENT_TIMESTAMP
-            WHERE id = :id
-        ");
+    /**
+     * 4. Cập nhật thông tin sản phẩm theo ID (Nhận vào ID và mảng dữ liệu)
+     */
+    public function update($id, $data) {
+        $sql = "UPDATE products SET name = ?, category = ?, price = ?, description = ? WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
         return $stmt->execute([
-            'id' => $id,
-            'name' => $data['name'],
-            'category' => $data['category'],
-            'price' => $data['price'],
-            'quantity' => $data['quantity'],
-            'description' => $data['description'] ?? ''
+            $data['name'] ?? '',
+            $data['category'] ?? '',
+            $data['price'] ?? 0,
+            $data['description'] ?? '',
+            $id
         ]);
     }
 
-    public function delete(int $id): bool {
-        $stmt = $this->db->prepare("DELETE FROM products WHERE id = :id");
-        return $stmt->execute(['id' => $id]);
+    /**
+     * 5. Xóa sản phẩm theo ID
+     */
+    public function delete($id) {
+        $sql = "DELETE FROM products WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$id]);
     }
 }
+?>

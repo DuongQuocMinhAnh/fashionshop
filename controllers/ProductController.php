@@ -1,17 +1,19 @@
 <?php
 
+require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Product.php';
 
 class ProductController {
     private Product $productModel;
 
     public function __construct() {
-        $this->productModel = new Product();
+        $db = Database::getConnection(); // Lấy đối tượng PDO
+        $this->productModel = new Product($db); // Truyền $db vào constructor
     }
 
     // Danh sách sản phẩm (Read all)
     public function index(): void {
-        $products = $this->productModel->all();
+        $products = $this->productModel->getAll();
         require_once __DIR__ . '/../views/products/index.php';
     }
 
@@ -30,11 +32,10 @@ class ProductController {
             return;
         }
 
-        $this->productModel->create([
+        $this->productModel->insert([
             'name' => trim($_POST['name']),
             'category' => trim($_POST['category']),
             'price' => (float)$_POST['price'],
-            'quantity' => (int)$_POST['quantity'],
             'description' => trim($_POST['description'] ?? '')
         ]);
 
@@ -46,7 +47,7 @@ class ProductController {
     // Form sửa sản phẩm (Edit form)
     public function edit(): void {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $product = $this->productModel->find($id);
+        $product = $this->productModel->getById($id);
 
         if (!$product) {
             $_SESSION['flash_error'] = 'Không tìm thấy sản phẩm!';
@@ -61,7 +62,7 @@ class ProductController {
     // Xử lý cập nhật sản phẩm (Update)
     public function update(): void {
         $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-        $product = $this->productModel->find($id);
+        $product = $this->productModel->getById($id);
 
         if (!$product) {
             $_SESSION['flash_error'] = 'Không tìm thấy sản phẩm!';
@@ -81,7 +82,6 @@ class ProductController {
             'name' => trim($_POST['name']),
             'category' => trim($_POST['category']),
             'price' => (float)$_POST['price'],
-            'quantity' => (int)$_POST['quantity'],
             'description' => trim($_POST['description'] ?? '')
         ]);
 
@@ -93,7 +93,7 @@ class ProductController {
     // Xử lý xoá sản phẩm (Delete)
     public function delete(): void {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $product = $this->productModel->find($id);
+        $product = $this->productModel->getById($id);
 
         if ($product) {
             $this->productModel->delete($id);
@@ -116,9 +116,6 @@ class ProductController {
         }
         if (!isset($data['price']) || !is_numeric($data['price']) || (float)$data['price'] < 0) {
             $errors['price'] = 'Giá phải là số dương lớn hơn hoặc bằng 0.';
-        }
-        if (!isset($data['quantity']) || !is_numeric($data['quantity']) || (int)$data['quantity'] < 0) {
-            $errors['quantity'] = 'Số lượng trong kho phải là số nguyên không âm.';
         }
         return $errors;
     }
