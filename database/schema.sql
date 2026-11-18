@@ -12,7 +12,7 @@ CREATE TABLE `products` (
     `image` VARCHAR(255) NULL,
     `description` TEXT NULL,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
 INSERT INTO `products` (`name`, `category`, `price`, `image`, `description`) VALUES
 ('Áo Thun Unisex Cotton', 'Áo', 180000.00, 'assets/images/ao-thun.jpg', 'Chất liệu cotton 100% thoáng mát, phong cách trẻ trung.'),
