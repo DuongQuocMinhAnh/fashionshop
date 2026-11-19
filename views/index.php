@@ -1,4 +1,4 @@
-<!-- TỆP GIAO DIỆN THUẦN HTML: views/products/index.html
+<!-- TỆP GIAO DIỆN THUẦN HTML: views/index.php
      PHỤ TRÁCH: Mai Trang (HTML5 Semantic + Khung hiển thị Form & Bảng)
      Thẻ ngữ nghĩa sử dụng: <main>, <header>, <section>, <form>, <table>, <figure>
 
@@ -13,6 +13,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Quản Lý Cửa Hàng Sản Phẩm Thời Trang</title>
+    <!-- CSS của Hoàng Phúc -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -171,5 +173,7 @@
 
     </main>
 
+    <!-- JS của Hoàng Phúc -->
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

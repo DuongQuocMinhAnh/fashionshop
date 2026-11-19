@@ -14,13 +14,13 @@ class ProductController {
     // Danh sách sản phẩm (Read all)
     public function index(): void {
         $products = $this->productModel->getAll();
-        require_once __DIR__ . '/../views/products/index.php';
+        require_once __DIR__ . '/../views/index.php';
     }
 
     // Form thêm sản phẩm (Create form)
     public function create(): void {
         $errors = [];
-        require_once __DIR__ . '/../views/products/create.php';
+        require_once __DIR__ . '/../views/index.php';
     }
 
     // Xử lý lưu sản phẩm mới (Store)
@@ -28,7 +28,7 @@ class ProductController {
         $errors = $this->validate($_POST);
 
         if (!empty($errors)) {
-            require_once __DIR__ . '/../views/products/create.php';
+            require_once __DIR__ . '/../views/index.php';
             return;
         }
 
@@ -56,7 +56,7 @@ class ProductController {
         }
 
         $errors = [];
-        require_once __DIR__ . '/../views/products/edit.php';
+        require_once __DIR__ . '/../views/index.php';
     }
 
     // Xử lý cập nhật sản phẩm (Update)
@@ -74,7 +74,7 @@ class ProductController {
 
         if (!empty($errors)) {
             $product = array_merge($product, $_POST);
-            require_once __DIR__ . '/../views/products/edit.php';
+            require_once __DIR__ . '/../views/index.php';
             return;
         }
 
