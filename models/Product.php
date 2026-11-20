@@ -34,12 +34,13 @@ class Product {
      * 3. Thêm mới sản phẩm (Nhận vào mảng dữ liệu từ Controller)
      */
     public function insert($data) {
-        $sql = "INSERT INTO products (name, category, price, description) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO products (name, category, price, image, description) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             $data['name'] ?? '',
             $data['category'] ?? '',
             $data['price'] ?? 0,
+            !empty($data['image']) ? $data['image'] : 'assets/images/fashion.png',
             $data['description'] ?? ''
         ]);
     }
@@ -48,12 +49,13 @@ class Product {
      * 4. Cập nhật thông tin sản phẩm theo ID (Nhận vào ID và mảng dữ liệu)
      */
     public function update($id, $data) {
-        $sql = "UPDATE products SET name = ?, category = ?, price = ?, description = ? WHERE id = ?";
+        $sql = "UPDATE products SET name = ?, category = ?, price = ?, image = ?, description = ? WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             $data['name'] ?? '',
             $data['category'] ?? '',
             $data['price'] ?? 0,
+            !empty($data['image']) ? $data['image'] : 'assets/images/fashion.png',
             $data['description'] ?? '',
             $id
         ]);
