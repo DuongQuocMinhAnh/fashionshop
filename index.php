@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CỔNG ĐIỀU HƯỚNG TRUNG TÂM (ROUTER)
  * PHỤ TRÁCH: Minh Anh (Tech Lead)
@@ -16,4 +17,23 @@ $controller = new ProductController();
 $action = $_GET['action'] ?? 'index';
 
 // Điều hướng request theo $action (Viết switch-case ở đây)
-
+switch ($action) {
+    case 'index':
+        $controller->index();
+        break;
+    case 'store':
+        $controller->store();
+        break;
+    case 'edit':
+        $controller->edit();
+        break;
+    case 'update':
+        $controller->update();
+        break;
+    case 'delete':
+        $controller->delete();
+        break;
+    default:
+        $controller->index();
+        break;
+}
